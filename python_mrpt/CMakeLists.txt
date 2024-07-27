@@ -6,6 +6,9 @@ project(python_mrpt)
 
 include(ExternalProject)
 
+# Reduce chances of RAM exaustion:
+set(PYMRPT_MAXIMUM_PARALLELIZATION 4)
+
 ExternalProject_Add(
   mrpt
   PREFIX ${CMAKE_BINARY_DIR}/mrpt-build
@@ -29,6 +32,9 @@ ExternalProject_Add(
     -DMRPT_BUILD_rplidar_sdk=OFF
     -DMRPT_BUILD_xsens=OFF
     -DMRPT_BUILD_nanogui=OFF
+    # Specific for pymrpt to prevent memory exhaustion:
+    -DMRPT_PYTHON_LTO_PARALLEL_JOBS=${PYMRPT_MAXIMUM_PARALLELIZATION}  # Minimize RAM usage, at the cost of longer build time
+    -DCMAKE_BUILD_PARALLEL_LEVEL=${PYMRPT_MAXIMUM_PARALLELIZATION}
     # Libs:
     -DBUILD_mrpt-apps=OFF
     -DBUILD_mrpt-bayes=OFF
@@ -63,6 +69,8 @@ ExternalProject_Add(
     -DBUILD_mrpt-vision=OFF
   # no install during build
   INSTALL_COMMAND ""
+  # Custom BUILD command to limit parallelization:
+  BUILD_COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}/mrpt-build/src/mrpt-build -j ${PYMRPT_MAXIMUM_PARALLELIZATION}
 )
 
 # Actual "install":
