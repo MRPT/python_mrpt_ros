@@ -16,9 +16,9 @@
 
   <!-- Deps required by user code (they are in public headers or built as ROS (vs system) packages -->
   <depend>mrpt_libapps</depend>
-  <depend>mrpt_slam</depend>
-  <depend>mrpt_gui</depend>
-  <depend>mrpt_nav</depend>
+  <depend>mrpt_libslam</depend>
+  <depend>mrpt_libgui</depend>
+  <depend>mrpt_libnav</depend>
 
   <!-- COMMON DEPS: This ensures we have ROS_DISTRO, etc. env vars -->
   <build_depend>ros_environment</build_depend>
