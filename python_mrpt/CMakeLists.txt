@@ -16,7 +16,7 @@ message(STATUS "MRPT_VERSION_TO_DOWNLOAD: ${MRPT_VERSION_TO_DOWNLOAD} (detected 
 #----
 
 # Reduce chances of RAM exaustion:
-set(PYMRPT_MAXIMUM_PARALLELIZATION 4)
+set(PYMRPT_MAXIMUM_PARALLELIZATION 2)
 
 ExternalProject_Add(
   mrpt
